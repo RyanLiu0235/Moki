@@ -3,11 +3,14 @@
     <div class="moki-header">
       <span>{{ date }}</span>
       <span>{{ basicInfo.city }} {{ basicInfo.cnty }}</span>
-      <span>更新时间：{{ basicInfo.update.loc | getTime }}</span>
-      <span @click="refresh">刷新</span>
     </div>
     <div class="moki-content">
       <list></list>
+    </div>
+    <div class="moki-footer">
+      <span>更新时间：{{ basicInfo.update.loc | getTime }}</span>
+      <!-- <span @click="refresh">刷新</span> -->
+    	<!-- <router-link :to="{name: 'city-page'}">更换城市</router-link> -->
     </div>
   </div>
 </template>
@@ -26,7 +29,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('fetchWeather');
+    this.$store.dispatch('fetchWeather', 'shanghai');
     setInterval(() => {
       this.date = new Date().toLocaleTimeString();
     }, 1000);
@@ -35,9 +38,9 @@ export default {
     list
   },
   methods: {
-    ...mapActions(['fetchWeather']),
+    ...mapActions(['fetchWeather', 'fetchCity']),
     refresh() {
-    	this.$store.dispatch('fetchWeather');
+    	this.$store.dispatch('fetchWeather', 'shanghai');
     }
   },
   computed: {

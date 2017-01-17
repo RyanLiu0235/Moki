@@ -10,20 +10,20 @@ const state = {
     tmp: {},
     wind: {}
   }],
-  isDataLoaded: false
+  isWeatherLoaded: false
 };
 
 const mutations = {
   [types.FETCHWEATHER_START](state) {
-    state.isDataLoaded = false;
+    state.isWeatherLoaded = false;
   },
   [types.FETCHWEATHER_SUCCESS](state, data) {
-    state.isDataLoaded = true;
+    state.isWeatherLoaded = true;
     state.basic = data.basic;
     state.daily_forecast = data.daily_forecast;
   },
   [types.FETCHWEATHER_FAILURE](state) {
-    state.isDataLoaded = true;
+    state.isWeatherLoaded = true;
   }
 };
 
