@@ -39,9 +39,20 @@ Vue.filter('getDay', function(time) {
  * getDate
  * 
  * @param  {String} time  original Date string
- * @return {String} xx月xx日
+ * @return {String} MM月DD日
  */
 Vue.filter('getDate', function(time) {
 	let _time = new Date(time);
 	return `${_time.getMonth() + 1}月${_time.getDate()}日`;
 });
+
+/**
+ * getTime
+ * 
+ * @param  {String} time  original Date string
+ * @return {String} 下午hh:mm:ss
+ */
+Vue.filter('getTime', function(time) {
+  let _time = new Date(time);
+  return `${_time.toLocaleTimeString()}`;
+})

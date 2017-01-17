@@ -1,13 +1,13 @@
 <template>
   <div class="moki-container">
-    <div class="wrapper">
-      <div class="moki-header">
-        <span>{{ date }}</span>
-        <span>{{ basicInfo.city }} {{ basicInfo.cnty }}</span>
-      </div>
-      <div class="moki-content">
-        <list></list>
-      </div>
+    <div class="moki-header">
+      <span>{{ date }}</span>
+      <span>{{ basicInfo.city }} {{ basicInfo.cnty }}</span>
+      <span>更新时间：{{ basicInfo.update.loc | getTime }}</span>
+      <span @click="refresh">刷新</span>
+    </div>
+    <div class="moki-content">
+      <list></list>
     </div>
   </div>
 </template>
@@ -28,14 +28,17 @@ export default {
   mounted() {
     this.$store.dispatch('fetchWeather');
     setInterval(() => {
-    	this.date = new Date().toLocaleTimeString();
+      this.date = new Date().toLocaleTimeString();
     }, 1000);
   },
   components: {
     list
   },
   methods: {
-    ...mapActions(['fetchWeather'])
+    ...mapActions(['fetchWeather']),
+    refresh() {
+    	this.$store.dispatch('fetchWeather');
+    }
   },
   computed: {
     ...mapGetters(['basicInfo'])
