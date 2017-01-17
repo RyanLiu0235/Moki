@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="w-list">
+  	<div class="loading" v-show="!isDataLoaded">加载中...</div>
+    <div class="w-list" v-show="isDataLoaded">
       <div v-for="w in dailyForecast" class="w-item">
         <div class="i-day">{{ w.date | getDay }}</div>
         <div class="i-date">{{ w.date | getDate }}</div>
@@ -32,7 +33,7 @@ import {
 export default {
   name: 'listPage',
   computed: {
-  	...mapGetters(['dailyForecast'])
+  	...mapGetters(['dailyForecast', 'isDataLoaded'])
   }
 }
 </script>

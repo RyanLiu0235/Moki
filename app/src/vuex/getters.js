@@ -1,2 +1,3 @@
-export const basicInfo = (state) => state.weather.basic;
-export const dailyForecast = (state) => state.weather.daily_forecast;
+export const basicInfo = ({ weather }) => weather.basic;
+export const dailyForecast = ({ weather }) => weather.daily_forecast;
+export const isDataLoaded = ({ weather }) => weather.isDataLoaded;
