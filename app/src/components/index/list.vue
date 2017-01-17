@@ -4,7 +4,7 @@
       <div v-for="w in weather" class="w-item">
         <div class="i-day">{{ w.date | getDay }}</div>
         <div class="i-date">{{ w.date | getDate }}</div>
-        <div class="i-weather">
+        <div class="i-cond">
         	<div class="i-w-item w-d">
         		<div>白天</div>
         		<div>{{ w.cond.txt_d }}</div>
@@ -13,6 +13,12 @@
         		<div>晚上</div>
         		<div>{{ w.cond.txt_n }}</div>
         	</div>
+        </div>
+        <div class="i-tmp">
+        	<div>{{ w.tmp.min }}℃ ~ {{ w.tmp.max }}℃</div>
+        </div>
+        <div class="i-wind">
+        	<div>{{ w.wind.dir }} {{ w.wind.sc }}</div>
         </div>
       </div>
     </div>
@@ -125,7 +131,7 @@ export default {
 		.w-item {
 			flex: 1;
 		}
-		.i-weather {
+		.i-cond {
 			display: flex;
 			.i-w-item {
 				flex: 1;
