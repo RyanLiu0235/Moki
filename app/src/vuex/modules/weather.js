@@ -1,9 +1,16 @@
 import * as types from '../mutation-types'
 
 const state = {
-  basic: {},
-  daily_forecast: {}
-}
+  basic: {
+    update: {}
+  },
+  daily_forecast: [{
+    astro: {},
+    cond: {},
+    tmp: {},
+    wind: {}
+  }]
+};
 
 const mutations = {
   [types.FETCHWEATHER_START](state) {
@@ -16,7 +23,7 @@ const mutations = {
   [types.FETCHWEATHER_FAILURE](state) {
 
   }
-}
+};
 
 export default {
   state,
