@@ -43,5 +43,5 @@ Vue.filter('getDay', function(time) {
  */
 Vue.filter('getDate', function(time) {
 	let _time = new Date(time);
-	return `${_time.getMonth()}月${_time.getDate()}日`;
+	return `${_time.getMonth() + 1}月${_time.getDate()}日`;
 });

@@ -1,1 +1,2 @@
-export const mainCounter = state => state.counters.main
+export const basicInfo = (state) => state.weather.basic;
+export const dailyForecast = (state) => state.weather.daily_forecast;

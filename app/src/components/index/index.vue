@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="moki-header">
         <span>{{ date }}</span>
-        <span>{{ location }}</span>
+        <span>{{ basicInfo.city }} {{ basicInfo.cnty }}</span>
       </div>
       <div class="moki-content">
         <list></list>
@@ -13,17 +13,32 @@
 </template>
 <script>
 import list from './list';
+import {
+  mapActions,
+  mapGetters
+} from 'vuex';
 
 export default {
   name: 'indexPage',
   data() {
     return {
-      date: new Date().toDateString(),
-      location: '上海市'
+      date: new Date().toLocaleTimeString()
     }
+  },
+  mounted() {
+    this.$store.dispatch('fetchWeather');
+    setInterval(() => {
+    	this.date = new Date().toLocaleTimeString();
+    }, 1000);
   },
   components: {
     list
+  },
+  methods: {
+    ...mapActions(['fetchWeather'])
+  },
+  computed: {
+    ...mapGetters(['basicInfo'])
   }
 }
 </script>
