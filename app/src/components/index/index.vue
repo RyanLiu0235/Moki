@@ -1,17 +1,15 @@
 <template>
   <div class="moki-container">
-    <div class="moki-header">
-      <span>{{ date }}</span>
-      <span>{{ basicInfo.city }} {{ basicInfo.cnty }}</span>
-    </div>
     <div class="moki-content">
       <list></list>
     </div>
-    <div class="moki-footer">
-      <span>更新时间：{{ basicInfo.update.loc | getTime }}</span>
-      <!-- <span @click="refresh">刷新</span> -->
-    	<!-- <router-link :to="{name: 'city-page'}">更换城市</router-link> -->
-    </div>
+    <el-row class="moki-footer">
+      <el-col :span="14" class="moki-footer-meta">
+        <span>{{ date }}</span>
+        <span>{{ basicInfo.city }} {{ basicInfo.cnty }}</span>
+      </el-col>
+      <el-col :span="10" class="moki-footer-update">更新时间：{{ basicInfo.update.loc | getTime }}</el-col>
+    </el-row>
   </div>
 </template>
 <script>
@@ -48,3 +46,22 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+  .moki {
+    &-container {
+      position: relative;
+    }
+    &-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+      &-update {
+        text-align: right;
+      }
+    }
+  }
+</style>
