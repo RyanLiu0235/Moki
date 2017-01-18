@@ -1,10 +1,12 @@
 # Moki
 
-> a simple weather widget on menubar
+> A simple weather app for macOS only
 
 ## Usage
 
-this widget replys on the data of [heweather](http://docs.heweather.com/224291), please get your own *key* and create a json file named `key.json` at `./app/src/`, it contains a key named `key` and a related value which is your own *key*.
+this widget replys on the data of [Heweather](http://docs.heweather.com/224291), please get your own *key* and create a json file named `key.json` at `./app/src/`, it contains a key named `key` and a related value which is your own *key*.
+
+*Heweather api is only free of charge for Chinese city.*
 
 ``` javascript
 {
