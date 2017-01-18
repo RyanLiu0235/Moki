@@ -17,10 +17,32 @@ let tray = null
 let image = nativeImage.createFromPath(`${__dirname}/icons/moki.png`)
 
 app.on('ready', () => {
-  tray = new Tray(image)
+  // create window and invisible as default
   const win = new BrowserWindow({ width: 800, height: 600 })
   win.loadURL(config.url)
-  tray.on('click', () => {
-    win.isVisible() ? win.hide() : win.show()
-  })
+  win.hide()
+
+  // create tray
+  tray = new Tray(image)
+  const contextMenu = Menu.buildFromTemplate([
+    { label: '7℃~14℃', type: 'normal' },
+    { type: 'separator' }, {
+      label: 'show cities',
+      submenu: [
+        { label: '上海', type: 'normal' },
+        { label: '北京', type: 'normal' },
+        { label: '深圳', type: 'normal' }
+      ]
+    }, {
+      label: 'show main window',
+      type: 'normal',
+      click: function(e, w) {
+        win.show()
+      }
+    },
+    { type: 'separator' },
+    { label: 'close', type: 'normal', role: 'close' },
+    { label: 'quit', type: 'normal', role: 'quit' }
+  ])
+  tray.setContextMenu(contextMenu)
 })
