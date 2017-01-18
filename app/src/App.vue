@@ -6,7 +6,6 @@
 
 <script>
   import store from 'src/vuex/store'
-  import 'normalize.css';
   
   export default {
     store
