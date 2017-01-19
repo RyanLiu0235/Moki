@@ -1,6 +1,6 @@
 'use strict'
 
-const { app, Menu, BrowserWindow, Tray, nativeImage } = require('electron')
+const { app, Menu, BrowserWindow, Tray, nativeImage, ipcMain } = require('electron')
 const path = require('path')
 
 let config = {}
@@ -17,33 +17,47 @@ let tray = null
 let image = nativeImage.createFromPath(`${__dirname}/icons/moki.png`)
 
 app.on('ready', () => {
-  // create window and invisible as default
+  // create window 
   const win = new BrowserWindow({ width: 800, height: 600 })
   win.loadURL(config.url)
-  win.hide()
 
   // create tray
   tray = new Tray(image)
   const contextMenu = Menu.buildFromTemplate([
     { label: '7℃~14℃', type: 'normal' },
     { type: 'separator' }, {
-      label: 'show cities',
-      submenu: [
-        { label: '上海', type: 'normal' },
-        { label: '北京', type: 'normal' },
-        { label: '深圳', type: 'normal' }
-      ]
+      label: '选择城市',
+      submenu: [{
+        label: '上海',
+        type: 'radio',
+        checked: true,
+        click: function(menuItem, browserWindow, event) {
+          win.webContents.send('change-city', 'shanghai');
+        }
+      }, {
+        label: '北京',
+        type: 'radio',
+        click: function(menuItem, browserWindow, event) {
+          win.webContents.send('change-city', 'beijing');
+        }
+      }, {
+        label: '深圳',
+        type: 'radio',
+        click: function(menuItem, browserWindow, event) {
+          win.webContents.send('change-city', 'shenzhen');
+        }
+      }]
     }, {
-      label: 'show main window',
+      label: '打开窗口',
       type: 'normal',
-      click: function(e, w) {
+      click: function(menuItem, browserWindow) {
         win.show()
         win.webContents.openDevTools()
       }
-    },
+    }, 
     { type: 'separator' },
-    { label: 'close', type: 'normal', role: 'close' },
-    { label: 'quit', type: 'normal', role: 'quit' }
+    { label: '最小化', type: 'normal', role: 'minimize' },
+    { label: '退出', type: 'normal', role: 'quit' }
   ])
   tray.setContextMenu(contextMenu)
 })

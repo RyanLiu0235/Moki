@@ -17,6 +17,10 @@ import {
   mapGetters
 } from 'vuex';
 
+import {
+  ipcRenderer
+} from 'electron';
+
 export default {
   name: 'indexPage',
   data() {
@@ -29,6 +33,9 @@ export default {
     setInterval(() => {
       this.date = new Date().toLocaleTimeString();
     }, 1000);
+    ipcRenderer.on('change-city', (e, city) => {
+      this.$store.dispatch('fetchWeather', city);
+    });
   },
   components: {
     list
