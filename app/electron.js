@@ -38,6 +38,7 @@ app.on('ready', () => {
       type: 'normal',
       click: function(e, w) {
         win.show()
+        win.webContents.openDevTools()
       }
     },
     { type: 'separator' },
