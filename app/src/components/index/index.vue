@@ -1,8 +1,6 @@
 <template>
   <div class="moki-container">
-    <div class="moki-content">
-      <list></list>
-    </div>
+    <list></list>
     <el-row class="moki-footer">
       <el-col :span="14" class="moki-footer-meta">
         <span>{{ date }}</span>
@@ -38,7 +36,7 @@ export default {
   methods: {
     ...mapActions(['fetchWeather', 'fetchCity']),
     refresh() {
-    	this.$store.dispatch('fetchWeather', 'shanghai');
+      this.$store.dispatch('fetchWeather', 'shanghai');
     }
   },
   computed: {
@@ -46,22 +44,25 @@ export default {
   }
 }
 </script>
-
 <style lang="less">
-  .moki {
-    &-container {
-      position: relative;
-    }
-    &-footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 30px;
-      line-height: 30px;
-      &-update {
-        text-align: right;
-      }
+.moki {
+  &-container {
+    position: relative;
+    height: 100%;
+  }
+  &-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    font-size: 12px;
+    color: #fff;
+    &-update {
+      text-align: right;
     }
   }
+}
 </style>
