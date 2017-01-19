@@ -10,10 +10,11 @@
       <transition-group class="moki-weather-list" name="list">
         <div v-for="(w, index) in dailyForecast" v-show="cur === index" :key="w" class="moki-weather-list-item">
           <div class="i-date">{{ w.date | getDate }}</div>
-          <el-row type="flex" justify="center" align="bottom" class="i-cond">
-            <el-col :span="4" class="i-cond-item cond-d">{{ w.cond.txt_d }}</el-col>
-            <el-col :span="4" class="i-cond-item cond-n">{{ w.cond.txt_n }}</el-col>
-          </el-row>
+          <div class="i-cond">
+            <span class="i-cond-item cond-d">{{ w.cond.txt_d }}</span>
+             ~ 
+            <span class="i-cond-item cond-n">{{ w.cond.txt_n }}</span>
+          </div>
           <div class="i-tmp i-meta">
             <div>温度范围：{{ w.tmp.min }}℃ ~ {{ w.tmp.max }}℃</div>
           </div>
@@ -182,6 +183,7 @@ export default {
       width: 100%;
       top: 100px;
       color: #fff;
+      text-align: center;
       &-item {
         font-size: 14px;
         text-align: center;
