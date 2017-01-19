@@ -24,8 +24,19 @@ export const fetchCity = ({ commit }, city) => {
     .then(rs => {
       if (rs.body.HeWeather5[0].status === 'ok') {
         commit(types.FETCHCITY_SUCCESS, rs.body.HeWeather5[0].basic);
+        let cities = getLocalCities();
+        cities.push(city);
+        setLocalCities(cities);
       } else {
         commit(types.FETCHCITY_FAILURE);
       }
     }, rs => commit(types.FETCHCITY_FAILURE));
+}
+
+export const getLocalCities = () => {
+  return JSON.parse(window.localStorage.getItem('moki-stared-cities') || '[]');
+}
+
+export const setLocalCities = (cities) => {
+  return window.localStorage.setItem('moki-stared-cities', JSON.stringify(cities));
 }

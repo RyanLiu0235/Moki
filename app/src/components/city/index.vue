@@ -28,8 +28,7 @@ export default {
     doSearch() {
       this.$store.dispatch('fetchCity', this.citySearch);
       this.placeholder = '加载中...';
-    },
-    doChange() {}
+    }
   },
   mounted() {
 

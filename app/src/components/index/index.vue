@@ -59,7 +59,7 @@ export default {
     width: 100%;
     height: 30px;
     line-height: 30px;
-    padding: 0 5px;
+    padding: 0 20px;
     font-size: 12px;
     color: #fff;
     &-update {

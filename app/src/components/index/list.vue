@@ -99,6 +99,7 @@ export default {
       background-color: #EFF2F7;
       &-item {
         &.active {
+          color: #58B2DC;
           &:after {
             background-color: #EFF2F7;
           }
@@ -119,6 +120,7 @@ export default {
       background-color: #8492A6;
       &-item {
         &.active {
+          color: #324057;
           &:after {
             background-color: #8492A6;
           }
@@ -145,7 +147,6 @@ export default {
       cursor: pointer;
       transition: all ease .3s;
       &.active {
-        color: #58B2DC;
         font-size: 18px;
         &:after {
           content: '';
@@ -175,7 +176,6 @@ export default {
       position: absolute;
       top: 40px;
       left: 20px;
-      width: 100%;
       color: #fff;
     }
     .i-cond {
@@ -185,7 +185,7 @@ export default {
       color: #fff;
       text-align: center;
       &-item {
-        font-size: 14px;
+        font-size: 20px;
         text-align: center;
       }
     }
