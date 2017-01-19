@@ -7,8 +7,24 @@
 import store from 'src/vuex/store';
 import 'normalize.css';
 
+import {
+  ipcRenderer
+} from 'electron';
+
 export default {
-  store
+  store,
+  mounted() {
+    // subscribe 'change-city' event
+    ipcRenderer.on('change-city', (e, city) => {
+      this.$store.dispatch('fetchWeather', city);
+    });
+    // subscribe 'go-to' event
+    ipcRenderer.on('go-to', (e, page) => {
+    	this.$router.push({
+    		name: page
+    	});
+    });
+  }
 }
 </script>
 <style lang="less">

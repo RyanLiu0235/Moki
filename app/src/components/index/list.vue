@@ -11,12 +11,8 @@
         <div v-for="(w, index) in dailyForecast" v-show="cur === index" :key="w" class="moki-weather-list-item">
           <div class="i-date">{{ w.date | getDate }}</div>
           <el-row type="flex" justify="center" align="bottom" class="i-cond">
-            <el-col :span="6" class="i-cond-item cond-d">
-              <div><small>白天</small>{{ w.cond.txt_d }}</div>
-            </el-col>
-            <el-col :span="6" class="i-cond-item cond-n">
-              <div><small>夜晚</small>{{ w.cond.txt_n }}</div>
-            </el-col>
+            <el-col :span="4" class="i-cond-item cond-d">{{ w.cond.txt_d }}</el-col>
+            <el-col :span="4" class="i-cond-item cond-n">{{ w.cond.txt_n }}</el-col>
           </el-row>
           <div class="i-tmp i-meta">
             <div>温度范围：{{ w.tmp.min }}℃ ~ {{ w.tmp.max }}℃</div>
@@ -179,13 +175,15 @@ export default {
       top: 40px;
       left: 20px;
       width: 100%;
+      color: #fff;
     }
     .i-cond {
       position: absolute;
       width: 100%;
       top: 100px;
+      color: #fff;
       &-item {
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="moki-container">
+  <div class="moki-index">
     <list></list>
     <el-row class="moki-footer">
       <el-col :span="14" class="moki-footer-meta">
@@ -17,10 +17,6 @@ import {
   mapGetters
 } from 'vuex';
 
-import {
-  ipcRenderer
-} from 'electron';
-
 export default {
   name: 'indexPage',
   data() {
@@ -29,13 +25,12 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('fetchWeather', 'shanghai');
+    let _city = this.$route.params.city || 'shanghai';
+    this.$store.dispatch('fetchWeather', _city);
+
     setInterval(() => {
       this.date = new Date().toLocaleTimeString();
     }, 1000);
-    ipcRenderer.on('change-city', (e, city) => {
-      this.$store.dispatch('fetchWeather', city);
-    });
   },
   components: {
     list
@@ -53,7 +48,7 @@ export default {
 </script>
 <style lang="less">
 .moki {
-  &-container {
+  &-index {
     position: relative;
     height: 100%;
   }

@@ -46,6 +46,12 @@ app.on('ready', () => {
         click: function(menuItem, browserWindow, event) {
           win.webContents.send('change-city', 'shenzhen');
         }
+      }, {
+        label: '更多',
+        type: 'normal',
+        click: function(menuItem, browserWindow, event) {
+          win.webContents.send('go-to', 'city-page');
+        }
       }]
     }, {
       label: '打开窗口',
@@ -55,6 +61,9 @@ app.on('ready', () => {
         win.webContents.openDevTools()
       }
     }, 
+    { label: '设置', type: 'normal', click: function(menuItem, browserWindow) {
+      win.webContents.send('go-to', 'setting-page');
+    }},
     { type: 'separator' },
     { label: '最小化', type: 'normal', role: 'minimize' },
     { label: '退出', type: 'normal', role: 'quit' }

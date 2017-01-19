@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <div class="moki-city-header">
-      <div class="city-selec">
-        <input type="search" v-model="cityS" placeholder="beijing/北京" @keyup.enter="doSearch" />
-      </div>
-    </div>
-    <div class="moki-city-content" v-show="!isCityLoaded">
-    	<div class="moki-city-search-result">{{ cityInfo.city }}</div>
+  <div class="moki-city">
+    <div class="moki-city-search">
+      <el-input v-model="citySearch" placeholder="请输入内容" icon="search" :on-icon-click="doSearch"></el-input>
+      <router-link :to="{ name: 'index-page', params: { city: cityInfo.city }}" class="moki-city-result">{{ isCityLoaded ? `${cityInfo.city} - ${cityInfo.prov} - ${cityInfo.cnty}` : placeholder }}</router-link>
     </div>
   </div>
 </template>
@@ -17,21 +13,40 @@ import {
 } from 'vuex';
 
 export default {
-  name: 'cityPage',
+  name: 'settingPage',
   data() {
     return {
-      cityS: ''
-    }
-  },
-  methods: {
-  	...mapActions(['fetchCity']),
-    doSearch() {
-      console.log(this.cityS);
-      this.$store.dispatch('fetchCity', this.cityS);
-    }
+      citySearch: '',
+      placeholder: ''
+    };
   },
   computed: {
-  	...mapGetters(['cityInfo', 'isCityLoaded'])
+    ...mapGetters(['cityInfo', 'isCityLoaded'])
+  },
+  methods: {
+    ...mapActions(['fetchCity']),
+    doSearch() {
+      this.$store.dispatch('fetchCity', this.citySearch);
+      this.placeholder = '加载中...';
+    },
+    doChange() {}
+  },
+  mounted() {
+
+  }
+};
+</script>
+<style lang="less">
+.moki-city {
+  padding: 10px;
+  &-result {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
   }
 }
-</script>
+</style>
