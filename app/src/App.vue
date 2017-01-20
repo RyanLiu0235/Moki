@@ -51,5 +51,6 @@ body,
 body {
   font-family: Hiragino Sans GB;
   font-size: 14px;
+  -webkit-user-select: none;
 }
 </style>
