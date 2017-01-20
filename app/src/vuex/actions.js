@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import * as types from './mutation-types';
-import { key } from '../key';
 
 const api = 'https://free-api.heweather.com/v5';
 
 export const fetchWeather = ({ commit }, city) => {
   commit(types.FETCHWEATHER_START);
   return Vue.http
-    .get(`${api}/forecast`, { params: { city: city, key: key } })
+    .get(`${api}/forecast`, { params: { city: city, key: HEkey } })
     .then(rs => {
       if (rs.body.HeWeather5[0].status === 'ok') {
         commit(types.FETCHWEATHER_SUCCESS, rs.body.HeWeather5[0]);
@@ -20,7 +19,7 @@ export const fetchWeather = ({ commit }, city) => {
 export const fetchCity = ({ commit }, city) => {
   commit(types.FETCHCITY_START);
   return Vue.http
-    .get(`${api}/search`, { params: { city: city, key: key } })
+    .get(`${api}/search`, { params: { city: city, key: HEkey } })
     .then(rs => {
       if (rs.body.HeWeather5[0].status === 'ok') {
         commit(types.FETCHCITY_SUCCESS, rs.body.HeWeather5[0].basic);

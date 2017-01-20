@@ -12,16 +12,16 @@
 </template>
 <script>
 const initCities = [{
-  name: '北京',
+  name: '上海',
   meta: {
-    city: '北京',
+    city: '上海',
     cnty: '中国',
     checked: true
   }
 }, {
-  name: '上海',
+  name: '北京',
   meta: {
-    city: '上海',
+    city: '北京',
     cnty: '中国',
     checked: false
   }
@@ -44,6 +44,8 @@ import {
   setLocalCache
 } from '../../utils';
 
+import { ipcRenderer } from 'electron';
+
 // check if key is 32-bit hexadecimal number
 function checkIfKeyIsValid(key) {
   return /[a-f0-9]{32}/gi.test(key);
@@ -60,9 +62,14 @@ export default {
     submit() {
       if (checkIfKeyIsValid(this.heKey)) {
       	// if the key is valid, store the key and some initial cities
-      	// informations in localStorage, and then redirect to index page
+      	// informations in localStorage, pass key to a global scoped variable 
+      	// HEkey and then redirect to index page
+      	window.HEkey = this.heKey;
         setLocalCache('user', this.heKey);
         setLocalCache(`${this.heKey}-cities`, initCities);
+
+        // emit `update-city` event 
+        ipcRenderer.send('update-city', initCities);
         this.$router.push({
           name: 'index-page',
           params: {

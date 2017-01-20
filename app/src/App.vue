@@ -28,16 +28,14 @@ export default {
     // if `user` is not empty, use the value to login.
     if (searchLocalCache('user')) {
       window.HEkey = getLocalCache('user');
+      // get local cache of cities from window.localStorage
+      let cityCache = getLocalCache(`${window.HEkey}-cities`);
+      ipcRenderer.send('update-city', cityCache);
     } else {
       this.$router.push({
         name: 'login-page'
       });
     }
-    
-
-    // get local cache of cities from window.localStorage
-    let cityCache = getLocalCache(`${window.HEkey}-cities`);
-    ipcRenderer.send('update-city', cityCache);
 
     // subscribe 'change-city' event
     ipcRenderer.on('change-city', (e, city) => {

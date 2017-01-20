@@ -18,45 +18,14 @@ let image = nativeImage.createFromPath(`${__dirname}/icons/moki.png`)
 
 // app
 app.on('ready', () => {
-  // create window 
+  let citiesArray = []
+  let menuTemplate = []
+  let contextMenu
+    // create window 
   const win = new BrowserWindow({ width: 1000, height: 600 })
   win.loadURL(config.url)
   win.webContents.openDevTools()
 
-  ipcMain.on('update-city', (event, cities) => {
-    citiesArray = cities
-  })
-
-  // generate context menu
-  let citiesArray = [{
-    name: '北京',
-    meta: {
-      city: '北京',
-      cnty: '中国',
-      checked: true
-    }
-  },{
-    name: '上海',
-    meta: {
-      city: '上海',
-      cnty: '中国',
-      checked: false
-    }
-  },{
-    name: '深圳',
-    meta: {
-      city: '深圳',
-      cnty: '中国',
-      checked: false
-    }
-  },{
-    name: '广州',
-    meta: {
-      city: '广州',
-      cnty: '中国',
-      checked: false
-    }
-  }]
   let chooseCityMenu = [{
     label: '更多',
     type: 'normal',
@@ -99,11 +68,27 @@ app.on('ready', () => {
     .concat(separator)
     .concat(chooseCityMenu)
 
-  const menuTemplate = infoMenu
+  menuTemplate = infoMenu
     .concat(separator)
     .concat(settingMenu)
     .concat(separator)
     .concat(winMenu)
-  const contextMenu = Menu.buildFromTemplate(menuTemplate)
+  contextMenu = Menu.buildFromTemplate(menuTemplate)
   tray.setContextMenu(contextMenu)
+
+  ipcMain.on('update-city', (event, cities) => {
+    settingMenu[0]['submenu'] = citiesMenuGenerater(cities, function(city) {
+        win.webContents.send('change-city', city)
+      })
+      .concat(separator)
+      .concat(chooseCityMenu)
+
+    menuTemplate = infoMenu
+      .concat(separator)
+      .concat(settingMenu)
+      .concat(separator)
+      .concat(winMenu)
+    contextMenu = Menu.buildFromTemplate(menuTemplate)
+    tray.setContextMenu(contextMenu)
+  })
 })
