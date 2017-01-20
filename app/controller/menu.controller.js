@@ -1,10 +1,10 @@
 exports.citiesMenuGenerater = function (citiesArray, handleClick) {
   return citiesArray.map((city, index) => {
     return {
-      label: city,
+      label: city.name,
       type: 'radio',
       click: function(menuItem, browserWindow, event) {
-        handleClick(city)
+        handleClick(city.name)
       }
     }
   })

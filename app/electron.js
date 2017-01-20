@@ -24,31 +24,33 @@ app.on('ready', () => {
   win.webContents.openDevTools()
 
   // generate context menu
-  let citiesArray = ['武汉', '宜昌']
-  let defaultCitiesMenu = [{
-    label: '上海',
-    type: 'radio',
-    checked: true,
-    click: function(menuItem, browserWindow, event) {
-      win.webContents.send('change-city', '上海')
+  let citiesArray = [{
+    name: '北京',
+    meta: {
+      city: '北京',
+      cnty: '中国',
+      checked: true
     }
-  }, {
-    label: '北京',
-    type: 'radio',
-    click: function(menuItem, browserWindow, event) {
-      win.webContents.send('change-city', '北京')
+  },{
+    name: '上海',
+    meta: {
+      city: '上海',
+      cnty: '中国',
+      checked: false
     }
-  }, {
-    label: '深圳',
-    type: 'radio',
-    click: function(menuItem, browserWindow, event) {
-      win.webContents.send('change-city', '深圳')
+  },{
+    name: '深圳',
+    meta: {
+      city: '深圳',
+      cnty: '中国',
+      checked: false
     }
-  }, {
-    label: '广州',
-    type: 'radio',
-    click: function(menuItem, browserWindow, event) {
-      win.webContents.send('change-city', '广州')
+  },{
+    name: '广州',
+    meta: {
+      city: '广州',
+      cnty: '中国',
+      checked: false
     }
   }]
   let chooseCityMenu = [{
@@ -60,7 +62,7 @@ app.on('ready', () => {
   }]
 
   let separator = [{ type: 'separator' }]
-  let infoMenu = [{ label: '7℃~14℃', type: 'normal' }]
+  let infoMenu = [{ label: '暂无数据', type: 'normal' }]
   let settingMenu = [{
     label: '选择城市',
     type: 'submenu',
@@ -90,10 +92,9 @@ app.on('ready', () => {
   // create tray
   tray = new Tray(image)
 
-  settingMenu[0]['submenu'] = defaultCitiesMenu
-    .concat(citiesMenuGenerater(citiesArray, function(city) {
+  settingMenu[0]['submenu'] = citiesMenuGenerater(citiesArray, function(city) {
       win.webContents.send('change-city', city)
-    }))
+    })
     .concat(separator)
     .concat(chooseCityMenu)
 
