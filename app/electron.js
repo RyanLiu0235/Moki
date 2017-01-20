@@ -92,8 +92,7 @@ app.on('ready', () => {
 
   settingMenu[0]['submenu'] = defaultCitiesMenu
     .concat(citiesMenuGenerater(citiesArray, function(city) {
-      console.log(city)
-      win.webContents.send('go-to', city)
+      win.webContents.send('change-city', city)
     }))
     .concat(separator)
     .concat(chooseCityMenu)
