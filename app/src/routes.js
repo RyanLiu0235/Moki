@@ -1,4 +1,8 @@
 export default [{
+  path: '/login',
+  name: 'login-page',
+  component: (resolve) => require(['./components/login/index'], resolve)
+}, {
   path: '/',
   name: 'index-page',
   component: (resolve) => require(['./components/index/index'], resolve)

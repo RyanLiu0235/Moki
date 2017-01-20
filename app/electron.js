@@ -23,6 +23,10 @@ app.on('ready', () => {
   win.loadURL(config.url)
   win.webContents.openDevTools()
 
+  ipcMain.on('update-city', (event, cities) => {
+    citiesArray = cities
+  })
+
   // generate context menu
   let citiesArray = [{
     name: '北京',
@@ -85,9 +89,6 @@ app.on('ready', () => {
     { label: '最小化', type: 'normal', role: 'minimize' },
     { label: '退出', type: 'normal', role: 'quit' }
   ]
-  ipcMain.on('update-city', (event, cities) => {
-    citiesArray = cities
-  })
 
   // create tray
   tray = new Tray(image)

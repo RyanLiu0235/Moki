@@ -3,6 +3,7 @@ exports.citiesMenuGenerater = function (citiesArray, handleClick) {
     return {
       label: city.name,
       type: 'radio',
+      checked: city.checked,
       click: function(menuItem, browserWindow, event) {
         handleClick(city.name)
       }

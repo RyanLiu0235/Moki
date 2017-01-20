@@ -6,7 +6,15 @@
 <script>
 import store from 'src/vuex/store';
 import 'normalize.css';
-import { mapActions } from 'vuex';
+import {
+  mapActions
+} from 'vuex';
+
+import {
+  searchLocalCache,
+  getLocalCache,
+  setLocalCache
+} from './utils';
 
 import {
   ipcRenderer
@@ -15,6 +23,22 @@ import {
 export default {
   store,
   mounted() {
+    // check if this user has logged in before by the unique key.
+    // if no one has logged in, redirect to login page.
+    // if `user` is not empty, use the value to login.
+    if (searchLocalCache('user')) {
+      window.HEkey = getLocalCache('user');
+    } else {
+      this.$router.push({
+        name: 'login-page'
+      });
+    }
+    
+
+    // get local cache of cities from window.localStorage
+    let cityCache = getLocalCache(`${window.HEkey}-cities`);
+    ipcRenderer.send('update-city', cityCache);
+
     // subscribe 'change-city' event
     ipcRenderer.on('change-city', (e, city) => {
       let curPage = this.$route.name;

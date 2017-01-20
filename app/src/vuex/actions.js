@@ -32,11 +32,3 @@ export const fetchCity = ({ commit }, city) => {
       }
     }, rs => commit(types.FETCHCITY_FAILURE));
 }
-
-export const getLocalCities = () => {
-  return JSON.parse(window.localStorage.getItem('moki-stared-cities') || '[]');
-}
-
-export const setLocalCities = (cities) => {
-  return window.localStorage.setItem('moki-stared-cities', JSON.stringify(cities));
-}
