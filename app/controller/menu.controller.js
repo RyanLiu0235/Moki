@@ -8,7 +8,7 @@ let chooseCityMenu = function(goTo) {
     label: '更多',
     type: 'normal',
     click: function() {
-    	goTo('setting-page')
+    	goTo('city-page')
     }
   }]
 }
