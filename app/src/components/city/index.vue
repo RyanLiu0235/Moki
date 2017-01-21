@@ -12,6 +12,10 @@ import {
   mapGetters
 } from 'vuex';
 
+import {
+  ipcRenderer
+} from 'electron';
+
 export default {
   name: 'settingPage',
   data() {
@@ -26,7 +30,10 @@ export default {
   methods: {
     ...mapActions(['fetchCity']),
     doSearch() {
-      this.$store.dispatch('fetchCity', this.citySearch);
+      this.$store.dispatch('fetchCity', this.citySearch)
+        .then(rs => {
+          ipcRenderer.send('update-city', rs);
+        })
       this.placeholder = '加载中...';
     }
   },

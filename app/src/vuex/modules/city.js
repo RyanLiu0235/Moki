@@ -14,7 +14,6 @@ const mutations = {
   [types.FETCHCITY_SUCCESS](state, city) {
     state.isCityLoaded = true;
     state.cityInfo = city;
-    window.localStorage.setItem('moki-city', JSON.stringify(city));
   },
   [types.FETCHCITY_FAILURE](state) {
     state.isCityLoaded = true;

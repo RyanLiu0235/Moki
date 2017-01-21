@@ -66,7 +66,7 @@ export default {
       	// HEkey and then redirect to index page
       	window.HEkey = this.heKey;
         setLocalCache('user', this.heKey);
-        setLocalCache(`${this.heKey}-cities`, initCities);
+        setLocalCache(`${HEkey}-cities`, initCities);
 
         // emit `update-city` event 
         ipcRenderer.send('update-city', initCities);
