@@ -2,7 +2,9 @@ import Vue from 'vue';
 import * as types from './mutation-types';
 import * as _ from '../utils';
 
-import { ipcRenderer } from 'electron';
+import {
+  ipcRenderer
+} from 'electron';
 
 const api = 'https://free-api.heweather.com/v5';
 
@@ -23,6 +25,7 @@ export const fetchWeather = ({ commit }, city) => {
     .get(`${api}/forecast`, { params: { city: city, key: HEkey } })
     .then(rs => {
       if (rs.body.HeWeather5[0].status === 'ok') {
+        ipcRenderer.send('update-weather', rs.body.HeWeather5[0]['daily_forecast']);
         return commit(types.FETCHWEATHER_SUCCESS, rs.body.HeWeather5[0]);
       } else {
         return commit(types.FETCHWEATHER_FAILURE);
@@ -59,7 +62,6 @@ export const fetchCity = ({ commit }, city) => {
           _.setLocalCache(`${HEkey}-cities`, localCities);
         }
 
-        ipcRenderer.send('update-city', localCities);
         return commit(types.FETCHCITY_SUCCESS, basic);
       } else {
         return commit(types.FETCHCITY_FAILURE);

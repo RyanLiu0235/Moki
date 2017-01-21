@@ -46,7 +46,7 @@ const citiesMenuGenerater = function(citiesArray, handleClick) {
  * @param  {Array} citiesArray 
  * @return {Array} 
  */
-exports.menuTemplateGenerator = function(win, citiesArray) {
+exports.menuTemplateGenerator = function(win, citiesArray, weather) {
   function changeCity(city) {
     win.webContents.send('change-city', city)
   }
@@ -61,6 +61,8 @@ exports.menuTemplateGenerator = function(win, citiesArray) {
   settingMenu[2]['click'] = function() {
     goTo('setting-page')
   }
+
+  infoMenu[0]['label'] = weather === undefined ? '暂无数据' : `${weather[0]['cond']['txt_d']}转${weather[0]['cond']['txt_n']} ${weather[0]['tmp']['min']}℃ ~ ${weather[0]['tmp']['max']}℃`
 
   return infoMenu
     .concat(separator)

@@ -28,6 +28,7 @@ export default {
     }
   },
   mounted() {
+    let localCities = _.getLocalCache(`${HEkey}-cities`);
     let _city = this.$route.params.city;
     // if no city then check localStorage for the checked option
     if (!_city) {

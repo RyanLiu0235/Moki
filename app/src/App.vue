@@ -10,11 +10,7 @@ import {
   mapActions
 } from 'vuex';
 
-import {
-  searchLocalCache,
-  getLocalCache,
-  setLocalCache
-} from './utils';
+import * as _ from './utils';
 
 import {
   ipcRenderer
@@ -23,13 +19,14 @@ import {
 export default {
   store,
   mounted() {
+    let cityCache;
     // check if this user has logged in before by the unique key.
     // if no one has logged in, redirect to login page.
     // if `user` is not empty, use the value to login.
-    if (searchLocalCache('user')) {
-      window.HEkey = getLocalCache('user');
+    if (_.searchLocalCache('user')) {
+      window.HEkey = _.getLocalCache('user');
       // get local cache of cities from window.localStorage
-      let cityCache = getLocalCache(`${window.HEkey}-cities`);
+      cityCache = _.getLocalCache(`${window.HEkey}-cities`);
       ipcRenderer.send('update-city', cityCache);
     } else {
       this.$router.push({
@@ -40,6 +37,7 @@ export default {
     // subscribe 'change-city' event
     ipcRenderer.on('change-city', (e, city) => {
       let curPage = this.$route.name;
+      _.updateCheckedCity(HEkey, city);
       if (curPage === 'index-page') {
         this.$store.dispatch('fetchWeather', city);
       } else {

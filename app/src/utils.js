@@ -44,3 +44,22 @@ export const findCheckedCity = (HEkey) => {
     }
   }
 }
+
+/**
+ * update checked city
+ *
+ * @param {String} HEkey  heweather key
+ * @param {String} cur  current city
+ */
+export const updateCheckedCity = (HEkey, cur) => {
+	let localCities = getLocalCache(`${HEkey}-cities`);
+	for (let i = 0; i < localCities.length; i++) {
+		if (localCities[i]['meta']['checked']) {
+			localCities[i]['meta']['checked'] = false;
+		}
+		if (localCities[i]['name'] === cur) {
+			localCities[i]['meta']['checked'] = true;
+		}
+	}
+	setLocalCache(`${HEkey}-cities`, localCities);
+}
