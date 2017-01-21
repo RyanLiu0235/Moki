@@ -1,8 +1,9 @@
 <template>
   <div class="moki-login">
+    <h2>登录Moki</h2>
     <el-row :gutter="20" class="moki-login-form">
       <el-col :span="20">
-        <el-input v-model="heKey" placeholder="请输入你的key"></el-input>
+        <el-input v-model="heKey" placeholder="请输入你的HEkey"></el-input>
       </el-col>
       <el-col :span="4">
         <el-button type="primary" @click="submit">提交</el-button>
@@ -44,7 +45,9 @@ import {
   setLocalCache
 } from '../../utils';
 
-import { ipcRenderer } from 'electron';
+import {
+  ipcRenderer
+} from 'electron';
 
 // check if key is 32-bit hexadecimal number
 function checkIfKeyIsValid(key) {
@@ -61,10 +64,10 @@ export default {
   methods: {
     submit() {
       if (checkIfKeyIsValid(this.heKey)) {
-      	// if the key is valid, store the key and some initial cities
-      	// informations in localStorage, pass key to a global scoped variable 
-      	// HEkey and then redirect to index page
-      	window.HEkey = this.heKey;
+        // if the key is valid, store the key and some initial cities
+        // informations in localStorage, pass key to a global scoped variable 
+        // HEkey and then redirect to index page
+        window.HEkey = this.heKey;
         setLocalCache('user', this.heKey);
         setLocalCache(`${HEkey}-cities`, initCities);
 
@@ -81,3 +84,10 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.moki {
+  &-login {
+    padding: 0 20px;
+  }
+}
+</style>

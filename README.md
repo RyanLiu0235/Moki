@@ -4,15 +4,9 @@
 
 ## Usage
 
-this widget replys on the data of [Heweather](http://docs.heweather.com/224291), please get your own *key* and create a json file named `key.json` at `./app/src/`, it contains a key named `key` and a related value which is your own *key*.
+Moki replys on the data of [Heweather](http://docs.heweather.com/224291).
 
-*Heweather api is only free of charge for Chinese city.*
-
-``` javascript
-{
-	"key": "2c1d4a776d474a939sdc096d622d9c19"
-}
-```
+When you use Moki for the first time, you'll have to login with your own key. Please get your own *key* and use this key to login.
 
 ## Build Setup
 
