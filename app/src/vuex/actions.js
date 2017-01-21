@@ -2,6 +2,8 @@ import Vue from 'vue';
 import * as types from './mutation-types';
 import * as _ from '../utils';
 
+import { ipcRenderer } from 'electron';
+
 const api = 'https://free-api.heweather.com/v5';
 
 const updateCityArray = (oldArray, newCity) => {
@@ -35,19 +37,30 @@ export const fetchCity = ({ commit }, city) => {
     .then(rs => {
       if (rs.body.HeWeather5[0].status === 'ok') {
         let basic = rs.body.HeWeather5[0].basic;
+
+        // check if this city has been stored before, if so, update it,
+        // if not, push it
         let localCities = _.getLocalCache(`${HEkey}-cities`);
-        let newCity = {
-          name: basic.city,
-          meta: {
-            city: basic.city,
-            cnty: basic.cnty,
-            checked: true
-          }
-        };
-        updateCityArray(localCities, newCity);
-        _.setLocalCache(`${HEkey}-cities`, localCities);
-        commit(types.FETCHCITY_SUCCESS, basic);
-        return Promise.resolve(localCities);
+        let cityIndex = localCities.findIndex((el) => el.name === city);
+        let checkedCity = _.findCheckedCity(HEkey);
+        if (cityIndex > -1) {
+          localCities[checkedCity.index]['meta']['checked'] = false;
+          localCities[cityIndex]['meta']['checked'] = true;
+        } else {
+          let newCity = {
+            name: basic.city,
+            meta: {
+              city: basic.city,
+              cnty: basic.cnty,
+              checked: true
+            }
+          };
+          updateCityArray(localCities, newCity);
+          _.setLocalCache(`${HEkey}-cities`, localCities);
+        }
+
+        ipcRenderer.send('update-city', localCities);
+        return commit(types.FETCHCITY_SUCCESS, basic);
       } else {
         return commit(types.FETCHCITY_FAILURE);
       }

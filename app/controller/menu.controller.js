@@ -8,7 +8,7 @@ let chooseCityMenu = function(goTo) {
     label: '更多',
     type: 'normal',
     click: function() {
-    	goTo('city-page')
+      goTo('city-page')
     }
   }]
 }
@@ -18,10 +18,10 @@ let settingMenu = [{
   type: 'submenu',
   submenu: []
 }, {
-	label: '刷新',
-	type: 'normal',
-	role: 'reload'
-},{
+  label: '刷新',
+  type: 'normal',
+  role: 'reload'
+}, {
   label: '设置',
   type: 'normal'
 }]
@@ -57,6 +57,10 @@ exports.menuTemplateGenerator = function(win, citiesArray) {
   settingMenu[0]['submenu'] = citiesMenuGenerater(citiesArray, changeCity)
     .concat(separator)
     .concat(chooseCityMenu(goTo))
+
+  settingMenu[2]['click'] = function() {
+    goTo('setting-page')
+  }
 
   return infoMenu
     .concat(separator)

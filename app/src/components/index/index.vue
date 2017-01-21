@@ -17,15 +17,23 @@ import {
   mapGetters
 } from 'vuex';
 
+import * as _ from '../../utils';
+
 export default {
   name: 'indexPage',
   data() {
     return {
-      date: new Date().toLocaleTimeString()
+      date: new Date().toLocaleTimeString(),
+      city: ''
     }
   },
   mounted() {
-    let _city = this.$route.params.city || 'shanghai';
+    let _city = this.$route.params.city;
+    // if no city then check localStorage for the checked option
+    if (!_city) {
+      _city = _.findCheckedCity(HEkey).name;
+    }
+    this.city = _city;
     this.$store.dispatch('fetchWeather', _city);
 
     setInterval(() => {
@@ -38,7 +46,7 @@ export default {
   methods: {
     ...mapActions(['fetchWeather', 'fetchCity']),
     refresh() {
-      this.$store.dispatch('fetchWeather', 'shanghai');
+      this.$store.dispatch('fetchWeather', this.city);
     }
   },
   computed: {

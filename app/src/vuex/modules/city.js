@@ -1,9 +1,9 @@
 import * as types from '../mutation-types'
 
-let cityCache = JSON.parse(window.localStorage.getItem('moki-city') || '{}');
+import { getLocalCache } from '../../utils';
 
 const state = {
-  cityInfo: cityCache,
+  cityInfo: {},
   isCityLoaded: false
 };
 
