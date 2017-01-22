@@ -28,20 +28,10 @@ app.on('ready', () => {
 
   let menuTemplate = menuTemplateGenerator(win, [])
   let contextMenu = Menu.buildFromTemplate(menuTemplate)
-  let _cities = []
-  let _weather = {}
   tray.setContextMenu(contextMenu)
 
-  ipcMain.on('update-city', (event, cities) => {
-    _cities = cities
-    menuTemplate = menuTemplateGenerator(win, _cities)
-    contextMenu = Menu.buildFromTemplate(menuTemplate)
-    tray.setContextMenu(contextMenu)
-  })
-
-  ipcMain.on('update-weather', (event, weather) => {
-    _weather = weather
-    menuTemplate = menuTemplateGenerator(win, _cities, weather)
+  ipcMain.on('update-menubar', (event, cities, weather) => {
+    menuTemplate = menuTemplateGenerator(win, cities, weather)
     contextMenu = Menu.buildFromTemplate(menuTemplate)
     tray.setContextMenu(contextMenu)
   })

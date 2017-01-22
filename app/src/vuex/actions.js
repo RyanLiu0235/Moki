@@ -34,7 +34,7 @@ export const fetchWeather = ({ commit }, city) => {
     .get(`${api}/forecast`, { params: { city: city, key: HEkey } })
     .then(rs => {
       if (rs.body.HeWeather5[0].status === 'ok') {
-        ipcRenderer.send('update-weather', rs.body.HeWeather5[0]['daily_forecast']);
+        ipcRenderer.send('update-menubar', _.getLocalCache(`${HEkey}-cities`), rs.body.HeWeather5[0]['daily_forecast']);
         return commit(types.FETCHWEATHER_SUCCESS, rs.body.HeWeather5[0]);
       } else {
         return commit(types.FETCHWEATHER_FAILURE);
@@ -69,7 +69,7 @@ export const fetchCity = ({ commit }, city) => {
           };
 
           let newCityArray = _.addCity(HEkey, newCity);
-          ipcRenderer.send('update-city', newCityArray);
+          ipcRenderer.send('update-menubar', newCityArray);
         }
 
         return commit(types.FETCHCITY_SUCCESS, basic);

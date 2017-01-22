@@ -27,7 +27,7 @@ export default {
       window.HEkey = _.getLocalCache('user');
       // get local cache of cities from window.localStorage
       cityCache = _.getLocalCache(`${window.HEkey}-cities`);
-      ipcRenderer.send('update-city', cityCache);
+      ipcRenderer.send('update-menubar', cityCache);
     } else {
       this.$router.push({
         name: 'login-page'

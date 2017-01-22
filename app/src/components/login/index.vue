@@ -71,8 +71,8 @@ export default {
         setLocalCache('user', this.heKey);
         setLocalCache(`${HEkey}-cities`, initCities);
 
-        // emit `update-city` event 
-        ipcRenderer.send('update-city', initCities);
+        // emit `update-menubar` event 
+        ipcRenderer.send('update-menubar', initCities);
         this.$router.push({
           name: 'index-page',
           params: {
