@@ -2,11 +2,16 @@
 
 > A simple weather app for macOS only
 
+## Features
+
+* 3-day weather forecast
+* Customize city
+
 ## Usage
 
 Moki replys on the data of [Heweather](http://docs.heweather.com/224291).
 
-When you use Moki for the first time, you'll have to login with your own key. Please get your own *key* and use this key to login.
+When you use Moki for the first time, you'll have to login with your own key.
 
 ## Build Setup
 
