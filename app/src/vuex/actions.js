@@ -8,6 +8,15 @@ import {
 
 const api = 'https://free-api.heweather.com/v5';
 
+/**
+ * update city array
+ * uncheck the currently checked city, and push the selected city into 
+ * the array
+ * 
+ * @param  {Array} oldArray
+ * @param  {Array} newCity
+ * @return {Array} 
+ */
 const updateCityArray = (oldArray, newCity) => {
   // first we have to uncheck the checked city
   for (let i = 0; i < oldArray.length; i++) {
@@ -60,6 +69,7 @@ export const fetchCity = ({ commit }, city) => {
           };
           updateCityArray(localCities, newCity);
           _.setLocalCache(`${HEkey}-cities`, localCities);
+          ipcRenderer.send('update-city', localCities);
         }
 
         return commit(types.FETCHCITY_SUCCESS, basic);
