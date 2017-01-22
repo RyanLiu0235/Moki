@@ -7,6 +7,13 @@
 * 3-day weather forecast
 * Customize city
 
+## Todos
+
+* Optimize structure. The code is a little messy right now.
+* Setting page. 
+	- Set the interval for automatic updates.
+	- Manage city list.
+
 ## Usage
 
 Moki replys on the data of [Heweather](http://docs.heweather.com/224291).
