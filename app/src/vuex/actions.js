@@ -67,9 +67,9 @@ export const fetchCity = ({ commit }, city) => {
               checked: true
             }
           };
-          updateCityArray(localCities, newCity);
-          _.setLocalCache(`${HEkey}-cities`, localCities);
-          ipcRenderer.send('update-city', localCities);
+
+          let newCityArray = _.addCity(HEkey, newCity);
+          ipcRenderer.send('update-city', newCityArray);
         }
 
         return commit(types.FETCHCITY_SUCCESS, basic);

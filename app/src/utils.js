@@ -47,19 +47,67 @@ export const findCheckedCity = (HEkey) => {
 
 /**
  * update checked city
+ * this method checks the selected city and unchecks the checked city
  *
  * @param {String} HEkey  heweather key
  * @param {String} cur  current city
  */
 export const updateCheckedCity = (HEkey, cur) => {
-	let localCities = getLocalCache(`${HEkey}-cities`);
-	for (let i = 0; i < localCities.length; i++) {
-		if (localCities[i]['meta']['checked']) {
-			localCities[i]['meta']['checked'] = false;
-		}
-		if (localCities[i]['name'] === cur) {
-			localCities[i]['meta']['checked'] = true;
-		}
-	}
-	setLocalCache(`${HEkey}-cities`, localCities);
+  let localCities = getLocalCache(`${HEkey}-cities`);
+  for (let i = 0; i < localCities.length; i++) {
+    if (localCities[i]['meta']['checked']) {
+      localCities[i]['meta']['checked'] = false;
+    }
+    if (localCities[i]['name'] === cur) {
+      localCities[i]['meta']['checked'] = true;
+    }
+  }
+  setLocalCache(`${HEkey}-cities`, localCities);
+}
+
+/**
+ * uncheck the checked city
+ * 
+ * @param  {String} HEkey       
+ * @param  {Array} localCities 
+ * @return {Array}  new city array with the former checked city unchecked       
+ */
+export const uncheckCity = (HEkey, localCities) => {
+  for (let i = 0; i < localCities.length; i++) {
+    if (localCities[i]['meta']['checked']) {
+      localCities[i]['meta']['checked'] = false;
+    }
+  }
+  return localCities;
+}
+
+/**
+ * check the currently selected city
+ * 
+ * @param  {String} HEkey       
+ * @param  {Array} localCities 
+ * @param  {String} cur 
+ * @return {Array}  new city array with the former checked city unchecked       
+ */
+export const checkCity = (HEkey, localCities, cur) => {
+  for (let i = 0; i < localCities.length; i++) {
+    if (localCities[i]['name'] === cur) {
+      localCities[i]['meta']['checked'] = true;
+    }
+  }
+  return localCities;
+}
+
+/**
+ * push city into the localStorage and upate checked city
+ * 
+ * @param  {String} HEkey 
+ * @param  {Object} city  
+ * @return {Array} new city array
+ */
+export const addCity = (HEkey, city) => {
+  let updatedCities = uncheckCity(HEkey, getLocalCache(`${HEkey}-cities`));
+  updatedCities.push(city);
+  setLocalCache(`${HEkey}-cities`, updatedCities);
+  return updatedCities;
 }

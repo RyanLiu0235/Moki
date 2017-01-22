@@ -1,5 +1,6 @@
 <template>
   <div class="moki-city">
+    <h2>搜索城市</h2>
     <div class="moki-city-search">
       <el-input v-model="citySearch" placeholder="请输入内容" icon="search" :on-icon-click="doSearch"></el-input>
       <router-link :to="{ name: 'index-page', params: { city: cityInfo.city }}" class="moki-city-result">{{ isCityLoaded ? `${cityInfo.city} - ${cityInfo.prov} - ${cityInfo.cnty}` : placeholder }}</router-link>
